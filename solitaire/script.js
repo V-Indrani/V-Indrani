@@ -295,7 +295,6 @@ function makeCardEl(card, { top = 0, selected = false } = {}) {
 }
 
 function renderStock() {
-  stockEl.textContent = state.stock.length ? `${state.stock.length}` : "↺";
   stockEl.innerHTML = "";
 
   if (state.stock.length > 0) {
@@ -320,8 +319,8 @@ function renderWaste() {
   }
 
   const top = state.waste[state.waste.length - 1];
-  const isSelected = state.selected && state.selected.type === "waste";
-  wasteEl.appendChild(makeCardEl(top, { selected: Boolean(isSelected) }));
+  const isSelected = state.selected?.type === "waste";
+  wasteEl.appendChild(makeCardEl(top, { selected: isSelected }));
 }
 
 function renderFoundations() {
@@ -365,14 +364,13 @@ function renderTableau() {
 
     pile.forEach((card, cardIndex) => {
       const isSelected =
-        state.selected &&
-        state.selected.type === "tableau" &&
+        state.selected?.type === "tableau" &&
         state.selected.pileIndex === pileIndex &&
         cardIndex >= state.selected.cardIndex;
 
       const cardEl = makeCardEl(card, {
         top: cardIndex * 28,
-        selected: Boolean(isSelected),
+        selected: isSelected,
       });
       cardEl.addEventListener("click", (event) => {
         event.stopPropagation();
