@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Solitaire</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="game">
+      <header class="top-bar">
+        <h1>Solitaire</h1>
+        <button id="new-game" type="button">New Game</button>
+      </header>
+
+      <section class="upper-row">
+        <div class="pile-group">
+          <button id="stock" class="pile stock" type="button" aria-label="Draw from stock"></button>
+          <button id="waste" class="pile waste" type="button" aria-label="Waste pile"></button>
+        </div>
+        <div id="foundations" class="pile-group foundations"></div>
+      </section>
+
+      <section id="tableau" class="tableau"></section>
+      <p id="status" class="status" aria-live="polite"></p>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

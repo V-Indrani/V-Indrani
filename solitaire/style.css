@@ -1,0 +1,154 @@
+:root {
+  color-scheme: light;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #0b6b33;
+  color: #fff;
+}
+
+.game {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.top-bar h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+#new-game {
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.8rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.upper-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.pile-group {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.foundations {
+  width: min(100%, 420px);
+  justify-content: flex-end;
+}
+
+.pile {
+  position: relative;
+  width: 90px;
+  height: 128px;
+  border: 2px dashed rgba(255, 255, 255, 0.35);
+  border-radius: 0.6rem;
+  background: transparent;
+  padding: 0;
+  color: inherit;
+}
+
+.stock,
+.waste,
+.foundation,
+.tableau-pile {
+  cursor: pointer;
+}
+
+.tableau {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(90px, 1fr));
+  gap: 0.6rem;
+}
+
+.tableau-pile {
+  min-height: 350px;
+  border: 2px dashed rgba(255, 255, 255, 0.35);
+  border-radius: 0.6rem;
+  position: relative;
+}
+
+.card {
+  width: 90px;
+  height: 128px;
+  border-radius: 0.5rem;
+  border: 1px solid #222;
+  background: #fff;
+  color: #111;
+  position: absolute;
+  left: -1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  user-select: none;
+}
+
+.card.red {
+  color: #b20000;
+}
+
+.card.back {
+  background: repeating-linear-gradient(
+    45deg,
+    #1435a4,
+    #1435a4 8px,
+    #2a51d8 8px,
+    #2a51d8 16px
+  );
+  border-color: #0b236f;
+  color: transparent;
+}
+
+.card.selected {
+  outline: 3px solid #ffd95c;
+  z-index: 100;
+}
+
+.placeholder {
+  position: absolute;
+  inset: 0;
+  border-radius: 0.6rem;
+  border: 2px dashed rgba(255, 255, 255, 0.28);
+}
+
+.status {
+  margin-top: 1rem;
+  min-height: 1.25rem;
+  font-weight: 600;
+}
+
+@media (max-width: 860px) {
+  .pile,
+  .card {
+    width: 72px;
+    height: 104px;
+  }
+
+  .tableau {
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+
+  .tableau-pile {
+    min-height: 300px;
+  }
+}
