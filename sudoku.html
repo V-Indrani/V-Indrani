@@ -212,7 +212,7 @@
 <div id="overlay">
   <div class="modal">
     <h2 id="modal-title">🎉 You Win!</h2>
-    <p id="modal-msg">Puzzle solved in <span id="modal-time"></span>.</p>
+    <p id="modal-msg">Puzzle solved!</p>
     <button id="modal-btn">Play Again</button>
   </div>
 </div>
@@ -222,7 +222,7 @@
   'use strict';
 
   /* ── helpers ── */
-  const $ = id => document.getElementById(id);
+  const getById = id => document.getElementById(id);
 
   /* ── Sudoku logic ── */
 
@@ -252,14 +252,14 @@
     return arr;
   }
 
-  function solve(grid, randomise=false){
-    const nums = randomise ? shuffle([1,2,3,4,5,6,7,8,9]) : [1,2,3,4,5,6,7,8,9];
+  function solve(grid, randomize=false){
+    const nums = randomize ? shuffle([1,2,3,4,5,6,7,8,9]) : [1,2,3,4,5,6,7,8,9];
     for(let pos=0;pos<81;pos++){
       if(grid[pos]!==0) continue;
       for(const n of nums){
         if(isValid(grid,pos,n)){
           grid[pos]=n;
-          if(solve(grid,randomise)) return true;
+          if(solve(grid,randomize)) return true;
           grid[pos]=0;
         }
       }
@@ -305,7 +305,7 @@
     return 1;
   }
 
-  const CLUES = { easy: 46, medium: 32, hard: 24 };
+  const DIFFICULTY_CLUES = { easy: 46, medium: 32, hard: 24 };
 
   /* ── state ── */
   let solution=[], puzzle=[], board=[], given=new Set();
@@ -315,15 +315,14 @@
   const MAX_MISTAKES=3;
 
   /* ── DOM refs ── */
-  const boardEl   = $('board');
-  const timerEl   = $('timer');
-  const mistakesEl= $('mistakes');
-  const overlay   = $('overlay');
-  const modalTitle= $('modal-title');
-  const modalMsg  = $('modal-msg');
-  const modalTime = $('modal-time');
-  const modalBtn  = $('modal-btn');
-  const btnNotes  = $('btn-notes');
+  const boardEl   = getById('board');
+  const timerEl   = getById('timer');
+  const mistakesEl= getById('mistakes');
+  const overlay   = getById('overlay');
+  const modalTitle= getById('modal-title');
+  const modalMsg  = getById('modal-msg');
+  const modalBtn  = getById('modal-btn');
+  const btnNotes  = getById('btn-notes');
 
   /* ── build cells ── */
   const cells = [];
@@ -337,7 +336,7 @@
   }
 
   /* ── build numpad ── */
-  const numpadEl=$('numpad');
+  const numpadEl=getById('numpad');
   for(let n=1;n<=9;n++){
     const btn=document.createElement('button');
     btn.textContent=n;
@@ -381,8 +380,8 @@
 
   /* ── new game ── */
   function newGame(){
-    const diff=$('difficulty').value;
-    const clues=CLUES[diff];
+    const diff=getById('difficulty').value;
+    const clues=DIFFICULTY_CLUES[diff];
     ({puzzle, solution}=generatePuzzle(clues));
     board=puzzle.slice();
     given=new Set(puzzle.reduce((a,v,i)=>v?[...a,i]:a,[]));
@@ -420,7 +419,6 @@
         stopTimer();
         modalTitle.textContent='💀 Game Over';
         modalMsg.textContent='Too many mistakes!';
-        modalTime.textContent='';
         overlay.classList.add('show');
         return;
       }
@@ -438,7 +436,7 @@
   }
 
   /* ── hint ── */
-  $('btn-hint').addEventListener('click',()=>{
+  getById('btn-hint').addEventListener('click',()=>{
     const empties=[];
     for(let i=0;i<81;i++) if(!given.has(i)&&board[i]===0) empties.push(i);
     if(!empties.length) return;
@@ -452,7 +450,7 @@
   });
 
   /* ── solve ── */
-  $('btn-solve').addEventListener('click',()=>{
+  getById('btn-solve').addEventListener('click',()=>{
     stopTimer();
     board=solution.slice();
     render();
@@ -467,10 +465,10 @@
   });
 
   /* ── erase button ── */
-  $('btn-erase').addEventListener('click',eraseCell);
+  getById('btn-erase').addEventListener('click',eraseCell);
 
   /* ── new game button ── */
-  $('btn-new').addEventListener('click',newGame);
+  getById('btn-new').addEventListener('click',newGame);
   modalBtn.addEventListener('click',newGame);
 
   /* ── win check ── */
@@ -478,8 +476,7 @@
     if(board.every((v,i)=>v===solution[i])){
       stopTimer();
       modalTitle.textContent='🎉 You Win!';
-      modalMsg.innerHTML=`Puzzle solved in <span id="modal-time"></span>.`;
-      $('modal-time').textContent=formatTime(elapsed);
+      modalMsg.textContent=`Puzzle solved in ${formatTime(elapsed)}.`;
       overlay.classList.add('show');
     }
   }
