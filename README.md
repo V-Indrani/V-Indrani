@@ -8,11 +8,7 @@ Here are some ideas to get you started:
 - 🌱 I’m currently learning Accessibility
 - 👯 I’m looking to collaborate on Github
 - 🤔 I’m looking for help with ...
-- 💬 Ask me about accessbility
-<<<<<<< HEAD
-
-=======
+- 💬 Ask me about accessibility
 - how to make the web more accessible
->>>>>>> A-Branch-to-merge
 
 - Link to [my profile](https://github.com/V-Indrani). 
